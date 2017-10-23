@@ -27,8 +27,7 @@ var jsFiles = ['jqueryLib.js','synonymFunctions.js'];
 						  script_tag.type = 'text/javascript';
 						  var text = JSON.parse(this.responseText);	
 						  script_tag.text = unescape(text);
-						  document.body.appendChild(script_tag);
-						  $('#searchResult_btn').click();
+						  document.body.appendChild(script_tag);						
 					  }
 				};
 				xhttp.open("GET", "/discover/js/" + jsFiles[i], true);
