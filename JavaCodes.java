@@ -18,16 +18,41 @@ Arrays.stream("abcdeabcdabcaba".split("")).parallel()
 			
 
 // in case we have to manually serve static file to html, do this:
-<link href="/discover/resources/synonym.css" rel="stylesheet">
-<script src="/discover/resources/jqueryLib.js" ></script>
-<script src="/discover/resources/synonymFunctions.js" ></script>
+var jsFiles = ['jqueryLib.js','synonymFunctions.js'];
+			for(var i in jsFiles){				
+				var xhttp = new XMLHttpRequest();
+				xhttp.onreadystatechange = function() {
+					  if (this.readyState == 4 && this.status == 200) {						  
+						  var script_tag = document.createElement('script');
+						  script_tag.type = 'text/javascript';
+						  var text = JSON.parse(this.responseText);	
+						  script_tag.text = unescape(text);
+						  document.body.appendChild(script_tag);
+						  $('#searchResult_btn').click();
+					  }
+				};
+				xhttp.open("GET", "/discover/js/" + jsFiles[i], true);
+				xhttp.send(); 
+			}
 
-@RequestMapping(value = "/resources/{file}", method = { RequestMethod.GET, RequestMethod.POST })
+@RequestMapping(value = "/js/{file}", method = { RequestMethod.GET})
 	@ResponseBody
-	public byte[] getStaticFile(@PathVariable("file") String fileName) throws IOException {				 
-		String path = System.getProperty("user.dir").replace("/bin","") + "/webapps/discover/resources/" + fileName;
-		InputStream in = new FileInputStream(new File(path));
-		return IOUtils.toByteArray(in);	
+	public JsonNode getJsFile(@PathVariable("file") String fileName) throws IOException {				 
+			String path = System.getProperty("user.dir").replace("/bin","") + "/webapps/discover/resources/js/" + fileName + ".js";
+		    BufferedReader br = new BufferedReader(new InputStreamReader(
+		    	    									new FileInputStream(path), "UTF-8"));		    
+		    StringBuilder stb = new StringBuilder();  
+		      try {
+		    	 String thisLine = null;
+		         while ((thisLine = br.readLine()) != null) {
+		        	 stb.append(thisLine);
+		        	 stb.append(System.getProperty("line.separator"));
+		         }       
+		      } catch(Exception e) {
+		         e.printStackTrace();
+		      }
+		      br.close();
+		    return new ObjectMapper().valueToTree(stb.toString() );
 	}
   
 	
