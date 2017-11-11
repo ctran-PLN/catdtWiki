@@ -16,3 +16,18 @@ def rotateR(al, m):
 print(a)  
 rotateL(a,2)
 rotateR(a,2)
+
+
+#Pandas
+#Convert Series month string to numeric
+monthStr
+->JAN
+->FEB
+->MAR
+->...
+->DEC
+#create a dictionary for the months
+monums={'JAN':'1', 'FEB':'2', 'MAR':'3', 'APR':'4', 'MAY':'5', 'JUN':'6', 'JUL':'7', 'AUG':'8', 'SEP':'9', 'OCT':'10', 'NOV':'11','DEC':'12'}
+#month
+monos=monthStr.map(monums)
+
