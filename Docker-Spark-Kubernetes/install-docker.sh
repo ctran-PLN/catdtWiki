@@ -29,5 +29,5 @@ sudo add-apt-repository \
 
 sudo apt-get update
 #apt-cache madison docker-ce
-sudo apt-get install docker-ce
+apt-get install docker-ce
 
