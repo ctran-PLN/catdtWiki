@@ -11,17 +11,23 @@ sudo apt-get install \
     software-properties-common
 
 # all Docker's GPG key
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+#curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+# for older docker version
+curl -fsSL https://apt.dockerproject.org/gpg | sudo apt-key add -
 
 # verify key fingerprint
 sudo apt-key fingerprint 0EBFCD88
 
 #set up the stable repository
-sudo add-apt-repository \
-   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-   $(lsb_release -cs) \
-   stable"
-  
+#sudo add-apt-repository \
+#   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+#   $(lsb_release -cs) \
+#   stable"
+
+sudo apt-add-repository "deb https://apt.dockerproject.org/repo ubuntu-$(lsb_release -cs) main"
+
 sudo apt-get update
-sudo apt-get install docker-ce=17.12.1
+apt-cache madison docker-ce
+#sudo apt-get install docker-ce=17.12.1
 
