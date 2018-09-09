@@ -5,4 +5,4 @@ docker build -t catdt/spark:2.3 -f kubernetes/dockerfiles/spark/Dockerfile .
 
 docker tag catdt-spark catdt/spark:2.3
 
-docker push catdt/spark:2.3
+docker push catdt-spark
