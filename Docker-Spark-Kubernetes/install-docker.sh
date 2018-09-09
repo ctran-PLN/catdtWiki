@@ -23,5 +23,5 @@ sudo add-apt-repository \
    stable"
   
 sudo apt-get update
-sudo apt-get install docker-ce
+sudo apt-get install docker-ce=17.03
 
