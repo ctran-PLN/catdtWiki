@@ -3,6 +3,6 @@
 cd spark-2.3.1-bin-hadoop2.7
 docker build -t catdt/spark:2.3 -f kubernetes/dockerfiles/spark/Dockerfile .
 
-docker tag catdt-spark catdt/spark:2.3
+docker tag catdt-spark catdintran/catdt/spark:firsttry
+docker push catdintran/catdt/spark
 
-docker push catdt-spark
