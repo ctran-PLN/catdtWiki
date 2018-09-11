@@ -40,11 +40,10 @@ RUN echo ". ~/.bashrc" >> /home/packt/.bash_profile
 #EXPOSE 8081
 
 # install Anaconda
-RUN wget https://repo.continuum.io/archive/Anaconda3-5.1.0-Linux-x86_64.sh
+RUN wget http://repo.continuum.io/archive/Anaconda3-5.1.0-Linux-x86_64.sh
 # pick your install directory
 ENV PREFIX=~/anaconda3
 # run the installer
-RUN chown -R 1000:1000 Anaconda3-5.1.0-Linux-x86_64.sh
 RUN bash Anaconda3-5.1.0-Linux-x86_64.sh -b -p "${PREFIX}"
 RUN rm Anaconda3-5.1.0-Linux-x86_64.sh
 RUN unset PREFIX
