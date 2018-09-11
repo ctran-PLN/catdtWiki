@@ -41,7 +41,7 @@ RUN echo ". ~/.bashrc" >> /home/packt/.bash_profile
 
 # install Anaconda
 RUN sudo wget http://repo.continuum.io/archive/Anaconda3-5.1.0-Linux-x86_64.sh
-RUN chown -R 1000:1000 Anaconda3-5.1.0-Linux-x86_64.sh
+RUN chown 1000:1000 Anaconda3-5.1.0-Linux-x86_64.sh
 # pick your install directory
 ENV PREFIX=~/anaconda3
 # run the installer
