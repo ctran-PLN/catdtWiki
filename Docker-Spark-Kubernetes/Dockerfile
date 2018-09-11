@@ -38,15 +38,3 @@ RUN echo ". ~/.bashrc" >> /home/packt/.bash_profile
 #Allow external connections to the cluster
 #EXPOSE 8080
 #EXPOSE 8081
-
-# install Anaconda
-RUN sudo wget http://repo.continuum.io/archive/Anaconda3-5.1.0-Linux-x86_64.sh
-RUN sudo chown $USER:$USER Anaconda3-5.1.0-Linux-x86_64.sh
-# pick your install directory
-ENV PREFIX=~/anaconda3
-# run the installer
-RUN bash Anaconda3-5.1.0-Linux-x86_64.sh -b -p "${PREFIX}"
-RUN rm Anaconda3-5.1.0-Linux-x86_64.sh
-RUN unset PREFIX
-# activate the installation
-RUN source ~/.bashrc
