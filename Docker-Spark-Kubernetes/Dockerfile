@@ -14,6 +14,10 @@ RUN rm jdk-8u181-linux-x64.tar.gz
 #Install and configure ApacheSpark
 RUN wget http://d3kbcqa49mib13.cloudfront.net/spark-2.0.0-bin-hadoop2.7.tgz
 RUN tar xvfz spark-2.0.0-bin-hadoop2.7.tgz
+
+RUN rm spark-2.0.0-bin-hadoop2.7.tgz
+
+
 RUN chown -R 1000:1000 /spark-2.0.0-bin-hadoop2.7
 RUN echo "SPARK_LOCAL_IP=127.0.0.1" > /spark-2.0.0-bin-hadoop2.7/conf/spark-env.sh
 RUN groupadd -g 1000 packt
@@ -34,13 +38,14 @@ RUN echo ". ~/.bashrc" >> /home/packt/.bash_profile
 #Allow external connections to the cluster
 #EXPOSE 8080
 #EXPOSE 8081
+
 # install Anaconda
-RUN wget https://repo.anaconda.com/archive/Anaconda3-5.2.0-Linux-x86_64.sh
+RUN wget https://repo.continuum.io/archive/Anaconda3-5.1.0-Linux-x86_64.sh
 # pick your install directory
 ENV PREFIX=~/anaconda3
 # run the installer
-RUN bash Anaconda3-5.2.0-Linux-x86_64.sh -b -p "${PREFIX}"
-RUN rm Anaconda3-5.2.0-Linux-x86_64.sh
+RUN bash Anaconda3-5.1.0-Linux-x86_64.sh -b -p "${PREFIX}"
+RUN rm Anaconda3-5.1.0-Linux-x86_64.sh
 RUN unset PREFIX
 # activate the installation
 RUN source ~/.bashrc
