@@ -44,12 +44,11 @@ RUN groupadd wheel -g 11 && \
     chown $NB_USER:$NB_GID $HOME
 
 # Install conda as jovyan and check the md5 sum provided on the download site
-ENV CONDA_VERSION 5.2.0
-RUN cd /tmp 
-RUN    wget --quiet https://repo.continuum.io/archive/Anaconda3-${CONDA_VERSION}-Linux-x86_64.sh 
-RUN    echo "a946ea1d0c4a642ddf0c3a26a18bb16d *Anaconda3-${CONDA_VERSION}-Linux-x86_64.sh" | md5sum -c - 
-RUN    /bin/bash Anaconda3-${CONDA_VERSION}-Linux-x86_64.sh -f -b -p $CONDA_DIR
-RUN    rm Anaconda3-${CONDA_VERSION}-Linux-x86_64.sh && \
+ENV CONDA_VERSION 5.2.0 
+RUN cd /tmp && \
+    wget --quiet https://repo.continuum.io/archive/Anaconda3-${CONDA_VERSION}-Linux-x86_64.sh && \
+    /bin/bash Anaconda3-${CONDA_VERSION}-Linux-x86_64.sh -f -b -p $CONDA_DIR && \
+    rm Anaconda3-${CONDA_VERSION}-Linux-x86_64.sh && \
     $CONDA_DIR/bin/conda config --system --prepend channels conda-forge && \
     $CONDA_DIR/bin/conda config --system --set auto_update_conda false && \
     $CONDA_DIR/bin/conda config --system --set show_channel_urls true && \
