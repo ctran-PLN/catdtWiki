@@ -55,7 +55,7 @@ ENV ANACONDA_VERSION Anaconda3-5.2.0-Linux-x86_64.sh
 ENV CONDA_VERSION 5.2.0
 
 RUN cd /tmp && \
-    wget --quiet https://repo.continuum.io/miniconda/${ANACONDA_VERSION} && \
+    wget --quiet https://repo.continuum.io/archive/${ANACONDA_VERSION} && \
     echo "a946ea1d0c4a642ddf0c3a26a18bb16d *${ANACONDA_VERSION}" | md5sum -c - && \
     /bin/bash ${ANACONDA_VERSION} -f -b -p $CONDA_DIR && \
     rm ${ANACONDA_VERSION} && \
