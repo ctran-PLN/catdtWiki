@@ -46,7 +46,8 @@ RUN groupadd wheel -g 11 && \
 USER $NB_UID
 
 # Setup work directory for backward-compatibility
-RUN mkdir /home/$NB_USER/work 
+RUN mkdir /home/$NB_USER/work && \
+    chown $NB_USER:$NB_GID /home/$NB_USER
 
 # Install conda as jovyan and check the md5 sum provided on the download site
 ENV ANACONDA_VERSION Anaconda3-5.2.0-Linux-x86_64.sh
