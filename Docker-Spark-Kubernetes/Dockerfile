@@ -54,18 +54,14 @@ RUN mkdir /home/$NB_USER/work && \
 ENV ANACONDA_VERSION Anaconda3-5.2.0-Linux-x86_64.sh
 ENV CONDA_VERSION 5.2.0
 
-RUN cd /tmp && \
-    wget --quiet https://repo.continuum.io/archive/${ANACONDA_VERSION} && \
-    echo "a946ea1d0c4a642ddf0c3a26a18bb16d *${ANACONDA_VERSION}" | md5sum -c - && \
-    /bin/bash ${ANACONDA_VERSION} -f -b -p $CONDA_DIR && \
-    rm ${ANACONDA_VERSION} && \
-    $CONDA_DIR/bin/conda config --system --prepend channels conda-forge && \
-    $CONDA_DIR/bin/conda config --system --set auto_update_conda false && \
-    $CONDA_DIR/bin/conda config --system --set show_channel_urls true && \
-    $CONDA_DIR/bin/conda install --quiet --yes conda="${CONDA_VERSION%.*}.*" && \
-    $CONDA_DIR/bin/conda update --all --quiet --yes && \
-    conda clean -tipsy && \
-    rm -rf /home/$NB_USER/.cache/yarn 
+RUN cd /tmp
+RUN    wget --quiet https://repo.continuum.io/archive/${ANACONDA_VERSION} 
+RUN    echo "a946ea1d0c4a642ddf0c3a26a18bb16d *${ANACONDA_VERSION}" | md5sum -c - 
+RUN    /bin/bash ${ANACONDA_VERSION} -f -b -p $CONDA_DIR 
+RUN    rm ${ANACONDA_VERSION}
+
+RUN    $CONDA_DIR/bin/conda update --all --quiet --yes 
+RUN    rm -rf /home/$NB_USER/.cache/yarn 
 
 USER root
 
