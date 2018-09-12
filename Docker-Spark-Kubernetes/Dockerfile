@@ -41,7 +41,8 @@ RUN groupadd wheel -g 11 && \
     useradd -m -s /bin/bash -N -u $NB_UID $NB_USER && \
     mkdir -p $CONDA_DIR && \
     chown $NB_USER:$NB_GID $CONDA_DIR && \
-    chmod g+w /etc/passwd 
+    chmod g+w /etc/passwd && \
+    chown $NB_USER:$NB_GID $HOME
 
 USER $NB_UID
 
