@@ -39,31 +39,25 @@ ADD fix-permissions /usr/local/bin/fix-permissions
 RUN groupadd wheel -g 11 && \
     echo "auth required pam_wheel.so use_uid" >> /etc/pam.d/su && \
     useradd -m -s /bin/bash -N -u $NB_UID $NB_USER && \
-    mkdir -p $CONDA_DIR && \
-    chown $NB_USER:$NB_GID $CONDA_DIR && \
+    mkdir -p $CONDA_DIR 
     chmod g+w /etc/passwd && \
     chown $NB_USER:$NB_GID $HOME
 
-USER $NB_UID
-
-# Setup work directory for backward-compatibility
-RUN mkdir /home/$NB_USER/work && \
-    chown $NB_USER:$NB_GID /home/$NB_USER
-
 # Install conda as jovyan and check the md5 sum provided on the download site
-ENV ANACONDA_VERSION=Anaconda3-5.2.0-Linux-x86_64.sh \
-    CONDA_VERSION=5.2.0
-
-RUN cd /tmp
-RUN    wget --quiet https://repo.continuum.io/archive/$ANACONDA_VERSION
-RUN    echo "a946ea1d0c4a642ddf0c3a26a18bb16d *${ANACONDA_VERSION}" | md5sum -c - 
-RUN    /bin/bash $ANACONDA_VERSION -f -b -p $CONDA_DIR 
-RUN    rm ${ANACONDA_VERSION}
-
-RUN    $CONDA_DIR/bin/conda update --all --quiet --yes 
-RUN    rm -rf /home/$NB_USER/.cache/yarn 
-
-USER root
+ENV CONDA_VERSION 5.2.0
+RUN cd /tmp && \
+    wget --quiet https://repo.continuum.io/archive/Anaconda3-${CONDA_VERSION}-Linux-x86_64.sh && \
+    echo "a946ea1d0c4a642ddf0c3a26a18bb16d *Anaconda3-${CONDA_VERSION}-Linux-x86_64.sh" | md5sum -c - && \
+    /bin/bash Anaconda3-${CONDA_VERSION}-Linux-x86_64.sh -f -b -p $CONDA_DIR && \
+    rm Anaconda3-${CONDA_VERSION}-Linux-x86_64.sh && \
+    $CONDA_DIR/bin/conda config --system --prepend channels conda-forge && \
+    $CONDA_DIR/bin/conda config --system --set auto_update_conda false && \
+    $CONDA_DIR/bin/conda config --system --set show_channel_urls true && \
+    $CONDA_DIR/bin/conda install --quiet --yes conda="${CONDA_VERSION%.*}.*" && \
+    $CONDA_DIR/bin/conda update --all --quiet --yes && \
+    conda clean -tipsy && \
+    rm -rf /home/$NB_USER/.cache/yarn 
+   
 
 # Spark dependencies
 ENV APACHE_SPARK_VERSION 2.3.1
@@ -110,7 +104,12 @@ RUN pip install --no-cache-dir \
     chown $NB_USER:$NB_GID $CONDA_DIR && \
     chown $NB_USER:$NB_GID /home/$NB_USER
 
+USER $NB_UID
+
+# Setup work directory for backward-compatibility
+RUN mkdir /home/$NB_USER/work && \
+    chown $NB_USER:$NB_GID /home/$NB_USER
+
 EXPOSE 8888
 WORKDIR $HOME
 
-USER $NB_UID
