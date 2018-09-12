@@ -42,7 +42,7 @@ RUN    useradd -m -s /bin/bash -N -u $NB_UID $NB_USER
 RUN    mkdir -p $CONDA_DIR 
 RUN    chown $NB_USER:$NB_GID $CONDA_DIR 
 RUN    chmod g+w /etc/passwd 
-RUN    fix-permissions $HOME 
+#RUN    fix-permissions $HOME 
 RUN    fix-permissions $CONDA_DIR
 
 USER $NB_UID
