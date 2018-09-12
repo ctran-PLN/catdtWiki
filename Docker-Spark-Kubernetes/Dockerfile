@@ -40,16 +40,15 @@ RUN groupadd wheel -g 11 && \
     echo "auth required pam_wheel.so use_uid" >> /etc/pam.d/su && \
     useradd -m -s /bin/bash -N -u $NB_UID $NB_USER && \
     mkdir -p $CONDA_DIR && \
-    chown $NB_USER:$NB_GID $CONDA_DIR && \
+    chown -r $NB_USER:$NB_GID $CONDA_DIR && \
     chmod g+w /etc/passwd && \
-    fix-permissions $HOME && \
-    fix-permissions $CONDA_DIR
+    chown -r $NB_USER:$NB_GID $HOME 
 
 USER $NB_UID
 
 # Setup work directory for backward-compatibility
 RUN mkdir /home/$NB_USER/work && \
-    fix-permissions /home/$NB_USER
+    chown -r $NB_USER:$NB_GID /home/$NB_USER
 
 # Install conda as jovyan and check the md5 sum provided on the download site
 ENV ANACONDA_VERSION Anaconda3-5.2.0-Linux-x86_64.sh
@@ -67,8 +66,8 @@ RUN cd /tmp && \
     $CONDA_DIR/bin/conda update --all --quiet --yes && \
     conda clean -tipsy && \
     rm -rf /home/$NB_USER/.cache/yarn && \
-    fix-permissions $CONDA_DIR && \
-    fix-permissions /home/$NB_USER
+    chown -r $NB_USER:$NB_GID $CONDA_DIR && \
+    chown -r $NB_USER:$NB_GID /home/$NB_USER
 
 USER root
 
@@ -114,8 +113,8 @@ RUN pip install --no-cache-dir \
     && \
     jupyter toree install --sys-prefix && \
     rm -rf /home/$NB_USER/.local && \
-    fix-permissions $CONDA_DIR && \
-    fix-permissions /home/$NB_USER
+    chown -r $NB_USER:$NB_GID $CONDA_DIR && \
+    chown -r $NB_USER:$NB_GID /home/$NB_USER
 
 EXPOSE 8888
 WORKDIR $HOME
