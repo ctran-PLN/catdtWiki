@@ -39,7 +39,7 @@ ADD fix-permissions /usr/local/bin/fix-permissions
 RUN groupadd wheel -g 11 && \
     echo "auth required pam_wheel.so use_uid" >> /etc/pam.d/su && \
     useradd -m -s /bin/bash -N -u $NB_UID $NB_USER && \
-    mkdir -p $CONDA_DIR 
+    mkdir -p $CONDA_DIR && \
     chmod g+w /etc/passwd && \
     chown $NB_USER:$NB_GID $HOME
 
