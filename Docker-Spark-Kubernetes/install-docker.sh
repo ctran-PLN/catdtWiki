@@ -33,3 +33,13 @@ sudo apt-get install docker-ce
 
 sudo usermod -aG docker $USER
 sudo reboot
+
+# install docker 17.03 Kubernetes
+sudo su
+curl -L -O https://download.docker.com/linux/static/stable/x86_64/docker-17.03.0-ce.tgz 
+tar -zxvf docker-17.03.0-ce.tgz
+rm docker-17.03.0-ce.tgz
+
+# build from binary
+mv docker/* /usr/bin/
+dockerd &
