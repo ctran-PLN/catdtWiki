@@ -52,10 +52,10 @@ RUN cd /tmp && \
     $CONDA_DIR/bin/conda config --system --prepend channels conda-forge && \
     $CONDA_DIR/bin/conda config --system --set auto_update_conda false && \
     $CONDA_DIR/bin/conda config --system --set show_channel_urls true && \
-    $CONDA_DIR/bin/conda install --quiet --yes conda="${CONDA_VERSION%.*}.*" && \
-    $CONDA_DIR/bin/conda update --all --quiet --yes && \
-    conda clean -tipsy && \
-    rm -rf /home/$NB_USER/.cache/yarn 
+    $CONDA_DIR/bin/conda install --quiet --yes conda="${CONDA_VERSION%.*}.*"
+RUN    $CONDA_DIR/bin/conda update --all --quiet --yes 
+RUN    conda clean -tipsy 
+RUN    rm -rf /home/$NB_USER/.cache/yarn 
    
 
 # Spark dependencies
