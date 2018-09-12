@@ -40,7 +40,7 @@ RUN groupadd wheel -g 11 && \
     echo "auth required pam_wheel.so use_uid" >> /etc/pam.d/su && \
     useradd -m -s /bin/bash -N -u $NB_UID $NB_USER && \
     mkdir -p $CONDA_DIR && \
-    chown -r $NB_USER:$NB_GID $CONDA_DIR && \
+    chown $NB_USER:$NB_GID $CONDA_DIR && \
     chmod g+w /etc/passwd 
 
 USER $NB_UID
@@ -109,8 +109,8 @@ RUN pip install --no-cache-dir \
     && \
     jupyter toree install --sys-prefix && \
     rm -rf /home/$NB_USER/.local && \
-    chown -r $NB_USER:$NB_GID $CONDA_DIR && \
-    chown -r $NB_USER:$NB_GID /home/$NB_USER
+    chown $NB_USER:$NB_GID $CONDA_DIR && \
+    chown $NB_USER:$NB_GID /home/$NB_USER
 
 EXPOSE 8888
 WORKDIR $HOME
