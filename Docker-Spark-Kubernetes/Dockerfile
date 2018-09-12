@@ -41,14 +41,12 @@ RUN groupadd wheel -g 11 && \
     useradd -m -s /bin/bash -N -u $NB_UID $NB_USER && \
     mkdir -p $CONDA_DIR && \
     chown -r $NB_USER:$NB_GID $CONDA_DIR && \
-    chmod g+w /etc/passwd && \
-    chown -r $NB_USER:$NB_GID $HOME 
+    chmod g+w /etc/passwd 
 
 USER $NB_UID
 
 # Setup work directory for backward-compatibility
-RUN mkdir /home/$NB_USER/work && \
-    chown -r $NB_USER:$NB_GID /home/$NB_USER
+RUN mkdir /home/$NB_USER/work 
 
 # Install conda as jovyan and check the md5 sum provided on the download site
 ENV ANACONDA_VERSION Anaconda3-5.2.0-Linux-x86_64.sh
@@ -65,9 +63,7 @@ RUN cd /tmp && \
     $CONDA_DIR/bin/conda install --quiet --yes conda="${CONDA_VERSION%.*}.*" && \
     $CONDA_DIR/bin/conda update --all --quiet --yes && \
     conda clean -tipsy && \
-    rm -rf /home/$NB_USER/.cache/yarn && \
-    chown -r $NB_USER:$NB_GID $CONDA_DIR && \
-    chown -r $NB_USER:$NB_GID /home/$NB_USER
+    rm -rf /home/$NB_USER/.cache/yarn 
 
 USER root
 
