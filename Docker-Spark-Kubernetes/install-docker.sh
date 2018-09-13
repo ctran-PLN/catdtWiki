@@ -36,10 +36,26 @@ sudo reboot
 
 # install docker 17.03 Kubernetes
 sudo su
-curl -L -O https://download.docker.com/linux/static/stable/x86_64/docker-17.03.0-ce.tgz 
-tar -zxvf docker-17.03.0-ce.tgz
-rm docker-17.03.0-ce.tgz
 
-# build from binary
-mv docker/* /usr/bin/
-dockerd &
+#openssh-server
+apt-get install openssh-server
+# install to allow `apt` to use a repo over HTTPS
+sudo apt-get install \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    software-properties-common
+
+# all Docker's GPG key
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+apt-get update
+
+# get docker 1.13.1
+curl -L -O https://packages.docker.com/1.13/apt/repo/pool/main/d/docker-engine/docker-engine_1.13.1~cs8-0~ubuntu-xenial_amd64.deb
+# install docker
+dpkg -i ./docker-engine_1.13.1~cs8-0~ubuntu-xenial_amd64.deb
+rm docker-engine_1.13.1~cs8-0~ubuntu-xenial_amd64.deb
+# start docker engine
+service docker start 
+
