@@ -7,3 +7,8 @@ sudo su -c "echo deb 'http://apt.kubernetes.io/ kubernetes-xenial main' >> /etc/
 sudo apt-get update
 
 apt-get install -y kubelet kubeadm kubectl kubernetes-cni
+
+systemctl daemon-reload
+systemctl restart kubelet
+swapoff -a
+kubeadm
