@@ -11,4 +11,7 @@ apt-get install -y kubelet kubeadm kubectl kubernetes-cni
 systemctl daemon-reload
 systemctl restart kubelet
 swapoff -a
-kubeadm
+# run this so it will stay swapoff
+sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
+
+kubeadm init
