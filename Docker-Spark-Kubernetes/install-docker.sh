@@ -57,6 +57,10 @@ curl -L -O https://packages.docker.com/1.13/apt/repo/pool/main/d/docker-engine/d
 # install docker
 dpkg -i ./docker-engine_1.13.1~cs8-0~ubuntu-xenial_amd64.deb
 rm docker-engine_1.13.1~cs8-0~ubuntu-xenial_amd64.deb
+
+groupadd docker
+usermod -a -G docker $USER
+
 # start docker engine
 service docker start 
-
+reboot
