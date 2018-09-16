@@ -31,6 +31,7 @@ sudo apt-get update
 #apt-cache madison docker-ce
 sudo apt-get install docker-ce
 
+sudo groupadd docker
 sudo usermod -aG docker $USER
 sudo reboot
 
