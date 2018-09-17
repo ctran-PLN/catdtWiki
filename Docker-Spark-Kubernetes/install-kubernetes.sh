@@ -14,7 +14,7 @@ swapoff -a
 # run this so it will stay swapoff
 sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
 
-kubeadm init
+kubeadm init token=123456.1234567890123456 --token-ttl 0
 
 sudo cp /etc/kubernetes/admin.conf $HOME/
 sudo chown $(id -u):$(id -g) $HOME/admin.conf
