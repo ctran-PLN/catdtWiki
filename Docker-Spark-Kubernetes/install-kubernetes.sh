@@ -22,3 +22,9 @@ export KUBECONFIG=$HOME/admin.conf
 
 #join
 kubeadm join --discovery-token-unsafe-skip-ca-verification --token=123456.1234567890123456 172.17.0.37:6443
+
+# on master
+kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
+#check 
+kubectl get pod -n kube-system
+kubectl get nodes
