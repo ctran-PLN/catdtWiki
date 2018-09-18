@@ -25,6 +25,11 @@ kubeadm join --discovery-token-unsafe-skip-ca-verification --token=123456.123456
 
 # on master
 kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
+
+# autocomplete kubectl
+sudo apt-get install bash-completion
+source <(kubectl completion bash)
+
 #check 
 kubectl get pod -n kube-system
 kubectl get nodes
