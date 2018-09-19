@@ -6,6 +6,7 @@ sudo su -c "echo deb 'http://apt.kubernetes.io/ kubernetes-xenial main' >> /etc/
 
 sudo apt-get update
 
+apt-get install docker.io
 apt-get install -y kubelet kubeadm kubectl kubernetes-cni
 
 systemctl daemon-reload
