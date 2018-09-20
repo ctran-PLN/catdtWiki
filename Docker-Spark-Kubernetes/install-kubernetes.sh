@@ -24,8 +24,11 @@ export KUBECONFIG=$HOME/admin.conf
 #join
 kubeadm join --discovery-token-unsafe-skip-ca-verification --token=123456.1234567890123456 172.17.0.37:6443
 
-# on master
+# on master, to weave all nodes together
 kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
+
+# deploy UI dashboard
+kubectl create -f https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml
 
 # autocomplete kubectl
 sudo apt-get install bash-completion
