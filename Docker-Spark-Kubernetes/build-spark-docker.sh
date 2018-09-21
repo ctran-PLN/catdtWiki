@@ -8,7 +8,7 @@ sudo apt-get -y update && \
 wget http://apache.claz.org/spark/spark-2.3.1/spark-2.3.1-bin-hadoop2.7.tgz
 tar xvf spark-2.3.1-bin-hadoop2.7.tgz
 cd spark-2.3.1-bin-hadoop2.7
-spark_path=$(echo pwd)
+spark_path=`pwd`
 echo 'export SPARK_HOME=$spark_path' >> ~/.bashrc
 echo 'export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/jre/' >> ~/.bashrc
 echo 'export PATH=$PATH:$JAVA_HOME' >> ~/.bashrc
