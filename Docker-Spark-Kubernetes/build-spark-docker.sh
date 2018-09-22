@@ -11,7 +11,7 @@ echo 'export PATH=$PATH:$JAVA_HOME' >> ~/.bashrc
 wget http://apache.claz.org/spark/spark-2.3.1/spark-2.3.1-bin-hadoop2.7.tgz
 tar xvf spark-2.3.1-bin-hadoop2.7.tgz
 sudo mv spark-2.3.1-bin-hadoop2.7 /usr/local/
-sudo ln -s /usr/local/spark-2.3.1-bin-hadoop2.7.tgz /usr/local/spark
+sudo ln -s /usr/local/spark-2.3.1-bin-hadoop2.7 /usr/local/spark
 cd /usr/local/spark
 spark_path=`pwd`
 echo 'export SPARK_HOME=$spark_path' >> ~/.bashrc
