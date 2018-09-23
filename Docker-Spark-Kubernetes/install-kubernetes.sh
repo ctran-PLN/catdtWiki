@@ -57,7 +57,9 @@ kubectl create -f dashboard-admin.yaml
 export export KUBE_EDITOR="nano"
 kubectl -n kube-system edit service kubernetes-dashboard
 # type: NodePort
-
+# get dashboard port
+kubectl -n kube-system get svc kubernetes-dashboard
+# https://<master ip>:<dashboard port>
 
 # autocomplete kubectl
 sudo apt-get install bash-completion
