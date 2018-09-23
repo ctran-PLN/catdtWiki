@@ -29,6 +29,9 @@ kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl versio
 
 # deploy UI dashboard
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml
+# complete delete dashboard
+#kubectl -n kube-system delete deploy/kubernetes-dashboard svc/kubernetes-dashboard secret/kubernetes-dashboard-certs serviceaccount/kubernetes-dashboard role.rbac.authorization.k8s.io/kubernetes-dashboard-minimal rolebinding.rbac.authorization.k8s.io/kubernetes-dashboard-minimal
+
 # grant Admin priv to Service Account
 # check kubernetes-dashboard ServiceAccount
 # kubectl -n kube-system describe rolebinding kubernetes-dashboard
