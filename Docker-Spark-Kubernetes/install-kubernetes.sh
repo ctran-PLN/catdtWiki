@@ -51,6 +51,7 @@ subjects:
   name: kubernetes-dashboard
   namespace: kube-system
 "  >> dashboard-admin.yaml
+kubectl create -f dashboard-admin.yaml
 
 # change to NodePort
 export export KUBE_EDITOR="nano"
