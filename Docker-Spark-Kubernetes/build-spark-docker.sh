@@ -1,4 +1,4 @@
-
+# yum install java-1.8.0-openjdk
 sudo apt-get -y update && \
     sudo apt-get install maven -y && \
     sudo apt-get install --no-install-recommends -y openjdk-8-jre-headless ca-certificates-java && \
