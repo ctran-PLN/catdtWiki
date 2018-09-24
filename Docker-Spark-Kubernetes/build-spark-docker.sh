@@ -1,4 +1,5 @@
 # yum install java-1.8.0-openjdk
+# echo 'export JAVA_HOME=/usr/lib/jvm/jre-1.8.0' >> ~/.bashrc
 sudo apt-get -y update && \
     sudo apt-get install maven -y && \
     sudo apt-get install --no-install-recommends -y openjdk-8-jre-headless ca-certificates-java && \
