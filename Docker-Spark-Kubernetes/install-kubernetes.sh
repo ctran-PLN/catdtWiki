@@ -34,7 +34,9 @@ kubeadm init token=123456.1234567890123456 --token-ttl 0
 
 sudo cp /etc/kubernetes/admin.conf $HOME/
 sudo chown $(id -u):$(id -g) $HOME/admin.conf
-export KUBECONFIG=$HOME/admin.conf
+echo 'export KUBECONFIG=$HOME/admin.conf' >> ~/.bashrc
+source ~/.bashrc
+#export KUBECONFIG=$HOME/admin.conf
 
 #join
 kubeadm join --discovery-token-unsafe-skip-ca-verification --token=123456.1234567890123456 172.17.0.37:6443
@@ -43,9 +45,13 @@ kubeadm join --discovery-token-unsafe-skip-ca-verification --token=123456.123456
 kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
 
 # deploy UI dashboard
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml
+kubectl create -f https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml
 # complete delete dashboard
 #kubectl -n kube-system delete deploy/kubernetes-dashboard svc/kubernetes-dashboard secret/kubernetes-dashboard-certs serviceaccount/kubernetes-dashboard role.rbac.authorization.k8s.io/kubernetes-dashboard-minimal rolebinding.rbac.authorization.k8s.io/kubernetes-dashboard-minimal
+
+port-forward the kubectl proxy
+ssh -L 8080:localhost:8001 -i cluster.pem ubtu@10.185.8.203
+
 
 # grant Admin priv to Service Account
 # check kubernetes-dashboard ServiceAccount
