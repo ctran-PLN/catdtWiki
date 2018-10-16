@@ -56,31 +56,31 @@ ssh -L 8080:localhost:8001 -i cluster.pem ubtu@10.185.8.203
 # grant Admin priv to Service Account
 # check kubernetes-dashboard ServiceAccount
 # kubectl -n kube-system describe rolebinding kubernetes-dashboard
-echo "
+cat <<EOF | kubectl create -f - 
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: admin-user
+  namespace: kube-system
+---
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRoleBinding
 metadata:
-  name: kubernetes-dashboard
-  labels:
-    k8s-app: kubernetes-dashboard
+  name: admin-user
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
   name: cluster-admin
 subjects:
 - kind: ServiceAccount
-  name: kubernetes-dashboard
+  name: admin-user
   namespace: kube-system
-"  >> dashboard-admin.yaml
-kubectl create -f dashboard-admin.yaml
+EOF
+# get token
+kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep admin-user | awk '{print $1}')
+# launch browser
+open http://localhost:8080/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/
 
-# change to NodePort
-export export KUBE_EDITOR="nano"
-kubectl -n kube-system edit service kubernetes-dashboard
-# type: NodePort
-# get dashboard port
-kubectl -n kube-system get svc kubernetes-dashboard
-# https://<master ip>:<dashboard port>
 
 # autocomplete kubectl
 sudo apt-get install bash-completion
