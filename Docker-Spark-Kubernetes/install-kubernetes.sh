@@ -82,6 +82,23 @@ kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | gre
 # launch browser
 open http://localhost:8080/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/
 
+cat <<EOF > cluster-admin.yaml
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRoleBinding
+metadata:
+  name: fabric8-rbac
+subjects:
+  - kind: ServiceAccount
+    # Reference to upper's `metadata.name`
+    name: default
+    # Reference to upper's `metadata.namespace`
+    namespace: default
+roleRef:
+  kind: ClusterRole
+  name: cluster-admin
+  apiGroup: rbac.authorization.k8s.io
+EOF
+kubectl apply -f cluster-admin.yaml
 
 # autocomplete kubectl
 sudo apt-get install bash-completion
