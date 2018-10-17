@@ -103,6 +103,9 @@ kubectl apply -f cluster-admin.yaml
 #create pod spark-master
 kubectl run spark-master --image=bde2020/spark-master --replicas=1
 
+#expose spark-ui to port 8000 through cluster-info
+kubectl expose deploy/spark-master --external-ip="10.185.8.203" --port=8000 --target-port=8080
+
 #list netstat port with PID
 netstat -tlp
 
