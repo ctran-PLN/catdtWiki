@@ -100,6 +100,10 @@ roleRef:
 EOF
 kubectl apply -f cluster-admin.yaml
 
+
+#list netstat port with PID
+netstat -tlp
+
 # autocomplete kubectl
 sudo apt-get install bash-completion
 source <(kubectl completion bash)
