@@ -100,6 +100,8 @@ roleRef:
 EOF
 kubectl apply -f cluster-admin.yaml
 
+#create pod spark-master
+kubectl run spark-master --image=bde2020/spark-master --replicas=1
 
 #list netstat port with PID
 netstat -tlp
