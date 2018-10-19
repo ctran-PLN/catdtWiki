@@ -50,8 +50,8 @@ kubectl create -f https://raw.githubusercontent.com/kubernetes/dashboard/master/
 # complete delete dashboard
 #kubectl -n kube-system delete deploy/kubernetes-dashboard svc/kubernetes-dashboard secret/kubernetes-dashboard-certs serviceaccount/kubernetes-dashboard role.rbac.authorization.k8s.io/kubernetes-dashboard-minimal rolebinding.rbac.authorization.k8s.io/kubernetes-dashboard-minimal
 
-port-forward the kubectl proxy
-ssh -L 8080:localhost:8001 -i cluster.pem ubtu@10.185.8.203
+#port-forward the kubectl proxy
+ssh -i "kube.pem" -L 8080:localhost:8001  ubuntu@ec2-52-15-241-154.us-east-2.compute.amazonaws.com
 
 
 # grant Admin priv to Service Account
