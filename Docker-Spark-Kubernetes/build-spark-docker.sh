@@ -18,3 +18,6 @@ spark_path=`pwd`
 echo 'export SPARK_HOME=/opt/spark' >> ~/.bashrc
 source ~/.bashrc
 
+#start local cluster
+$SPARK_HOME/sbin/start-master.sh
+$SPARK_HOME/sbin/start-slave.sh spark://`hostname`:7077
