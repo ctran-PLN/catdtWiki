@@ -12,11 +12,13 @@ RUN yum -y update \
     && conda install -y tensorflow-gpu keras \
     && conda install -y pytorch torchvision cudatoolkit=9.2 -c pytorch \
     && rpm -e --nodeps curl bzip2
-   
+ 
+ WORKDIR /notebook
+ 
  CMD jupyter notebook --allow-root --no-browser --ip 0.0.0.0 --port 8888 --NotebookApp.token=''
  
  ### build
  # docker build -t <containerName> .
  
  ### run
- # docker run -p 8888:8888 <containerName>
+ # docker run --runtime=nvidia -p 8888:8888 <containerName>
