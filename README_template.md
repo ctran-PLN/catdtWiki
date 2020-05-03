@@ -53,9 +53,6 @@ A list of **all features** of this study:
 
 
 ## Contributors
-* Barry Chiu
 * Cat Din Tran
-* Shawne Pierson
-* Gersenda Varisco
 
 > **Disclaimer**<a name="disclaimer" />: Please Note that this is a research project. I am by no means responsible for any usage of this tool. Use on your own behalf. 
